@@ -5,7 +5,7 @@ import javax.persistence.Converter;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 
-import static com.sims.CommonConstant.ZONE_ID;
+import static com.sims.CommonConstant.ZONE_ID_UTC;
 
 @Converter
 public class ZonedDateTimeConverter implements AttributeConverter<ZonedDateTime, Long> {
@@ -24,6 +24,6 @@ public class ZonedDateTimeConverter implements AttributeConverter<ZonedDateTime,
             return null;
         }
         Instant now = Instant.ofEpochMilli(dbData);
-        return ZonedDateTime.ofInstant(now, ZONE_ID);
+        return ZonedDateTime.ofInstant(now, ZONE_ID_UTC);
     }
 }
