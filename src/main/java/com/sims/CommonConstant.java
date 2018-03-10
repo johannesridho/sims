@@ -8,10 +8,9 @@ import java.util.Locale;
 public final class CommonConstant {
     public static final Locale LOCALE = Locale.ENGLISH;
     public static final ZoneId ZONE_ID_UTC = ZoneId.of("UTC");
-
-    private static final int HOUR_DIFFERENCE = 7;
-    private static final ZoneOffset ZONE_OFFSET = ZoneOffset.ofHours(HOUR_DIFFERENCE);
-    private static final String MYSQL_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String MYSQL_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final int HOUR_DIFFERENCE = 7;
+    public static final ZoneOffset ZONE_OFFSET = ZoneOffset.ofHours(HOUR_DIFFERENCE);
 
     public static final DateTimeFormatter MYSQL_DATE_TIME_FORMATTER = DateTimeFormatter
             .ofPattern(MYSQL_DATE_FORMAT, LOCALE)
