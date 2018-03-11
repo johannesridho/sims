@@ -5,18 +5,18 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "product")
 @Data
 public class Warehouse {
+
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String name;
 
     @Convert(converter = ZonedDateTimeConverter.class)
@@ -26,5 +26,4 @@ public class Warehouse {
     @Convert(converter = ZonedDateTimeConverter.class)
     @LastModifiedDate
     private ZonedDateTime updatedAt;
-
 }

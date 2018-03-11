@@ -1,10 +1,11 @@
 package com.sims.product;
 
 import com.sims.jpa.converter.ZonedDateTimeConverter;
-import com.sims.warehouse.Warehouse;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,19 +14,21 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "product")
 @Data
+@Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Product {
+
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String sku;
     private String name;
     private String description;
-    private int quantity;
-    private int reserved;
+    private Integer warehouseId;
+    private Integer quantity;
+    private Integer reserved;
     private BigDecimal price;
-
-    @ManyToOne
-    @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
-    private Warehouse warehouse;
 
     @Convert(converter = ZonedDateTimeConverter.class)
     @CreatedDate
@@ -34,5 +37,4 @@ public class Product {
     @Convert(converter = ZonedDateTimeConverter.class)
     @LastModifiedDate
     private ZonedDateTime updatedAt;
-
 }

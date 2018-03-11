@@ -17,6 +17,5 @@ public final class CommonConstant {
             .withZone(ZONE_OFFSET);
 
     private CommonConstant() {
-
     }
 }
