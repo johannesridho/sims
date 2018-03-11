@@ -1,34 +1,36 @@
 package com.sims.product.request;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Value
-@RequiredArgsConstructor
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateProductRequest {
 
     @NotBlank
-    private final String sku;
+    private String sku;
 
     @NotBlank
-    private final String name;
+    private String name;
 
     @NotBlank
-    private final String description;
+    private String description;
 
     @NotNull
-    private final Integer warehouseId;
+    private Integer warehouseId;
 
     @NotNull
-    private final Integer quantity;
+    private Integer quantity;
 
     @NotNull
-    private final Integer reserved;
+    private Integer reserved;
 
     @NotNull
-    private final BigDecimal price;
+    private BigDecimal price;
 }

@@ -1,5 +1,6 @@
 package com.sims.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -27,6 +28,7 @@ public class CustomJackson2ObjectMapperBuilder extends Jackson2ObjectMapperBuild
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.setDateFormat(new SimpleDateFormat(MYSQL_DATE_FORMAT, LOCALE));
         objectMapper.setTimeZone(TimeZone.getTimeZone("GMT"));
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_ABSENT);
         objectMapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
         objectMapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
 
