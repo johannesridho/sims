@@ -1,6 +1,10 @@
 package com.sims.product;
 
 import com.sims.exception.NotFoundException;
+import com.sims.exception.ReductionTooLargeException;
+import com.sims.exception.ReservationTooLargeException;
+import com.sims.exception.ReservedReductionTooLargeException;
+import com.sims.product.request.CreateProductRequest;
 import com.sims.warehouse.Warehouse;
 import com.sims.warehouse.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,50 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public Product addQuantity(Integer warehouseId, String sku, Integer addition) {
+        final Product product = getByWarehouseIdAndSku(warehouseId, sku);
+        product.setQuantity(product.getQuantity() + addition);
+
+        return productRepository.save(product);
+    }
+
+    public Product reduceQuantity(Integer warehouseId, String sku, Integer reduction) {
+        final Product product = getByWarehouseIdAndSku(warehouseId, sku);
+
+        if (reduction > product.getQuantity()) {
+            throw new ReductionTooLargeException();
+        }
+
+        product.setQuantity(product.getQuantity() - reduction);
+
+        return productRepository.save(product);
+    }
+
+    public Product addReservedProducts(Integer warehouseId, String sku, Integer addition) {
+        final Product product = getByWarehouseIdAndSku(warehouseId, sku);
+
+        if (addition + product.getReserved() > product.getQuantity()) {
+            throw new ReservationTooLargeException();
+        }
+
+        product.setReserved(product.getReserved() + addition);
+
+        return productRepository.save(product);
+    }
+
+    public Product reduceReservedProducts(Integer warehouseId, String sku, Integer reduction) {
+        final Product product = getByWarehouseIdAndSku(warehouseId, sku);
+
+        if (reduction > product.getReserved()) {
+            throw new ReservedReductionTooLargeException();
+        }
+
+        product.setReserved(product.getReserved() - reduction);
+        product.setQuantity(product.getQuantity() - reduction);
+
+        return productRepository.save(product);
+    }
+
     public List<Product> getByWarehouse(Integer warehouseId) {
         validateWarehouseId(warehouseId);
 
@@ -38,6 +86,12 @@ public class ProductService {
         validateWarehouseId(warehouseId);
 
         return productRepository.findByWarehouseIdAndReservedNot(warehouseId, 0);
+    }
+
+    private Product getByWarehouseIdAndSku(Integer warehouseId, String sku) {
+        return productRepository.findByWarehouseIdAndSku(warehouseId, sku)
+                .orElseThrow(() -> new NotFoundException(String.format("Product with warehouseId $s and sku $s " +
+                        "is not found.", warehouseId, sku)));
     }
 
     private void validateWarehouseId(Integer id) {
