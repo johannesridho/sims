@@ -17,7 +17,6 @@ import java.util.TimeZone;
 import static com.sims.CommonConstant.LOCALE;
 import static com.sims.CommonConstant.MYSQL_DATE_FORMAT;
 
-
 @Component
 public class CustomJackson2ObjectMapperBuilder extends Jackson2ObjectMapperBuilder {
     @Override

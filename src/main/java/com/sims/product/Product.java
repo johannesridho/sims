@@ -1,7 +1,6 @@
 package com.sims.product;
 
 import com.sims.jpa.converter.ZonedDateTimeConverter;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -12,9 +11,7 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "product")
 @Data
-@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Product {
 
