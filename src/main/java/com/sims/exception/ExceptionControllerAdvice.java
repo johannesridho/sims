@@ -13,7 +13,7 @@ public class ExceptionControllerAdvice {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
     @ExceptionHandler(SimsException.class)
-    public ResponseEntity<ErrorResponse> handleLitsyncException(SimsException e) {
+    public ResponseEntity<ErrorResponse> handleException(SimsException e) {
         logger.info(e.getErrorCode());
 
         final ErrorResponse errorResponse = new ErrorResponse(e.getErrorCode(), e.getMessage());
