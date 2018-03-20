@@ -9,6 +9,7 @@ import com.sims.warehouse.Warehouse;
 import com.sims.warehouse.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
 
+    @Transactional
     public Product create(CreateProductRequest request) {
         final Product product = new Product();
         product.setSku(request.getSku());
@@ -32,6 +34,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional
     public Product addQuantity(Integer warehouseId, String sku, Integer addition) {
         final Product product = getByWarehouseIdAndSku(warehouseId, sku);
         product.setQuantity(product.getQuantity() + addition);
@@ -39,6 +42,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional
     public Product reduceQuantity(Integer warehouseId, String sku, Integer reduction) {
         final Product product = getByWarehouseIdAndSku(warehouseId, sku);
 
@@ -51,6 +55,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional
     public Product addReservedProducts(Integer warehouseId, String sku, Integer addition) {
         final Product product = getByWarehouseIdAndSku(warehouseId, sku);
 
@@ -63,6 +68,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional
     public Product reduceReservedProducts(Integer warehouseId, String sku, Integer reduction) {
         final Product product = getByWarehouseIdAndSku(warehouseId, sku);
 
