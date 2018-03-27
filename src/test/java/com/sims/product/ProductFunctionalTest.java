@@ -29,7 +29,7 @@ public class ProductFunctionalTest extends FunctionalTest {
             .when()
                 .post("/products")
             .then()
-                .statusCode(200)
+                .statusCode(201)
                 .contentType(ContentType.JSON)
                 .body("id", notNullValue())
                 .body("sku", equalTo("sku"))

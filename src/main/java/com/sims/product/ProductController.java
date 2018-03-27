@@ -2,6 +2,7 @@ package com.sims.product;
 
 import com.sims.product.request.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Product create(@Validated @RequestBody CreateProductRequest request) {
         return productService.create(request);
     }
